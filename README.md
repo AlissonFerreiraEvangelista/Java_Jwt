@@ -1,7 +1,7 @@
 # Java_Jwt
 
 Projeto criado para aprendizado de autenticação Spring Security com JWT.
-Utilizei o Docker para criar dois servidores para aplicação o app-01 e app-02, na qual se conectam ao banco de dados postgresSQL(foi dependência flywaydb para as migrations). 
+Utilizei o Docker para criar dois servidores para aplicação o app-01 e app-02, na qual se conectam ao banco de dados postgresSQL(usei a dependência flywaydb para as migrations). 
 O Nginx faz o loadbalance entre as aplicações 01 e 02.
 
 
