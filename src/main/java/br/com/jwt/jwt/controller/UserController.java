@@ -1,7 +1,6 @@
 package br.com.jwt.jwt.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,8 @@ import br.com.jwt.jwt.dto.UserDto;
 import br.com.jwt.jwt.entity.UserEntity;
 import br.com.jwt.jwt.repository.UserRepository;
 import br.com.jwt.jwt.service.UserService;
+import io.swagger.annotations.ApiOperation;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,6 +35,7 @@ public class UserController {
     UserRepository userRepository;
 
     @PostMapping("/register")
+    @ApiOperation(value = "Cadastra um usuário - Perfil de ADMIN")
     public ResponseEntity<Object> registerUser(@RequestBody UserDto userDto) {
         var userEntity = new UserEntity();
         BeanUtils.copyProperties(userDto, userEntity);
@@ -45,12 +47,15 @@ public class UserController {
     }
 
     @GetMapping("/findall")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @ApiOperation(value = "Retorna uma lista de usuários - Perfil de ADMIN")
     public ResponseEntity<List<UserEntity>> findAllUser(){
         return ResponseEntity.status(HttpStatus.OK).body(userService.findAllByUser());
     }
 
+
     @PutMapping("/update")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @ApiOperation(value = "Atualiza um usuário - Perfil de USER")
     public ResponseEntity<?> update(@RequestBody UserEntity userEntity){
 		if(userEntity.getUserId() == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ID não informado");	

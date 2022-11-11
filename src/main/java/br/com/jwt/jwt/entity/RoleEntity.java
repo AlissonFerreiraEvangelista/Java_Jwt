@@ -24,7 +24,7 @@ public class RoleEntity implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID roleIde;
+    private UUID roleId;
     
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, unique = true)
@@ -32,7 +32,7 @@ public class RoleEntity implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        // TODO Auto-generated method stub
+        
         return this.roleName.toString();
     }
 }

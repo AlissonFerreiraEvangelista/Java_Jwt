@@ -19,7 +19,6 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 
 import br.com.jwt.jwt.constants.SecurityConstantes;
-import br.com.jwt.jwt.entity.UserEntity;
 import br.com.jwt.jwt.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 

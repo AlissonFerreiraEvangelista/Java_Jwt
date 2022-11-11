@@ -52,36 +52,42 @@ public class UserEntity implements UserDetails{
                 inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<RoleEntity> roles;
     
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // TODO Auto-generated method stub
         return this.roles;
     }
 
+    @JsonIgnore
     @Override
     public String getUsername() {
         // TODO Auto-generated method stub
         return this.name;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         // TODO Auto-generated method stub
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         // TODO Auto-generated method stub
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         // TODO Auto-generated method stub
         return true;
     }
-
+    
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         // TODO Auto-generated method stub

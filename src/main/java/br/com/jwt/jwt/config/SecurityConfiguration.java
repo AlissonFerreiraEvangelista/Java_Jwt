@@ -33,7 +33,15 @@ public class SecurityConfiguration {
 	@Autowired
 	UserService service;
 	
-
+	private static final String[] AUTH_WHITELIST = {
+		// -- swagger ui
+		"/v2/api-docs",
+		"/v3/api-docs",  
+		"/swagger-resources/**", 
+		"/swagger-ui/**",
+		"/swagger-ui.html",
+		"/webjars/**"
+	};
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -47,9 +55,16 @@ public class SecurityConfiguration {
 			    try {
 					auth
 						.antMatchers(HttpMethod.POST, "/login").permitAll()
-						.antMatchers(HttpMethod.POST, "/login").permitAll()
-						.antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
+						.antMatchers(AUTH_WHITELIST).permitAll()
 						.antMatchers(HttpMethod.GET, "/auth/findall").hasRole("ADMIN")
+						.antMatchers(HttpMethod.POST, "/auth/register").hasRole("ADMIN")
+						.antMatchers(HttpMethod.PUT, "/auth/update").hasRole("USER")
+						.antMatchers(HttpMethod.GET, "/produto/todos").hasRole("USER")
+						.antMatchers(HttpMethod.GET, "/produto/todos").hasRole("USER")
+						.antMatchers(HttpMethod.GET, "/produto/um/**").hasRole("USER")
+						.antMatchers(HttpMethod.POST, "/produto/salva").hasRole("ADMIN")
+						.antMatchers(HttpMethod.PUT, "/produto/atualiza").hasRole("ADMIN")
+						.antMatchers(HttpMethod.DELETE, "/produto/delete/**").hasRole("ADMIN")
 						.anyRequest().authenticated()
 						.and()
 						.addFilter(authenticationFilter())
